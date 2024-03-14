@@ -1,0 +1,34 @@
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Sample social media data
+social_media_data = [
+    "I love the new iPhone! It's amazing!",
+    "The customer service of XYZ company is terrible.",
+    "Just bought a new laptop, and it's already broken.",
+    "Excited to try out the new restaurant in town!",
+    "I'm so disappointed with the quality of this product.",
+]
+
+# Initialize sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+
+# Analyze sentiment for each text
+sentiments = []
+for text in social_media_data:
+    sentiment = sid.polarity_scores(text)
+    sentiments.append(sentiment)
+
+# Create DataFrame from sentiment scores
+df = pd.DataFrame(sentiments)
+
+# Visualize sentiment distribution
+plt.figure(figsize=(8, 6))
+df.mean().plot(kind='bar')
+plt.title('Average Sentiment Distribution')
+plt.xlabel('Sentiment')
+plt.ylabel('Mean Score')
+plt.xticks(rotation=0)
+plt.show()
